@@ -39,7 +39,7 @@ EXTENDER_POCKETS = [                               # (air cm3, centroid mm)
 
 # things not in STRUCTURE-ASSY: (name, mass kg, displaced volume cm3, position mm)
 T200 = (0.344, 188.0)   # Blue Robotics: 344 g in air, 156 g in water
-THRUSTER_XZ = [(637, 1241), (902, 1241), (637, 1553), (902, 1553), (770, 1571), (770, 1223)]
+THRUSTER_XZ = [(609.7, 1195.1), (929.6, 1195.1), (609.7, 1599.1), (929.6, 1599.1), (769.64, 1600.6), (769.64, 1193.6)]  # from TOP-ASSY_..._T200
 EXTRA = [(f"T200 #{i+1}", *T200, (x, 968, z)) for i, (x, z) in enumerate(THRUSTER_XZ)] + [
     ("battery (est. 4S 5 Ah LiPo)", 0.60, 0.0, (871, 925, 1397)),   # inside hull: no extra volume
     ("electronics + wiring (est.)", 1.00, 0.0, (720, 945, 1397)),
