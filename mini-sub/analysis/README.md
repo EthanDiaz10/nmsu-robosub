@@ -57,3 +57,32 @@ onto the gasket, so the gasket seal gets tighter with depth.
 * Real base-board material (it's the heaviest part; G10 at 1.85 g/cc vs HDPE at 0.95 changes trim a lot)
 * Real battery and electronics masses and positions -> rerun `buoyancy_trim.py`
 * Lid gasket compression between the 8 draw latches; window flange bolt preload
+
+## 3. Thruster authority (`thruster_allocation.py`)
+
+Layout: ArduSub **Vectored** frame (BlueROV2, FRAME_CONFIG 1): 4 horizontal T200s on the corner mounts at 45 deg,
+2 vertical T200s side by side on the curved mounts. It controls roll, yaw, heave, surge and sway, **but not pitch**.
+The T200s aren't placed in TOP-ASSY yet, so the positions come from the mount centers and the thruster height is a
+parameter (base-board mid-plane assumed).
+
+| Axis | Max (T200 @ 16 V) |
+|---|---|
+| Surge | 114 N |
+| Sway | 108 N |
+| Heave | 103 N |
+| Roll | 14 N*m |
+| Yaw | 33 N*m |
+
+Plenty of force: drag is roughly 33 N at 1 m/s (frontal area ~0.06 m^2, Cd ~1.1), so cruise thrust is ~10 N.
+
+**Pitch is the weak spot.** Nothing can correct pitch, so it relies on the passive restoring moment, which tops out at
+m g GM = 2.0 N*m with GM 16 mm.
+* Horizontal thrust line 10 mm above or below the CG: full surge pitches the sub ~35 deg, and 20 mm offset tumbles it.
+  At a 10 N cruise it's ~3 deg per 10 mm.
+* Verticals sit ~15 mm aft of the trimmed CG: half heave (50 N) pitches it ~22 deg, full heave ~52 deg.
+
+What to do
+* Put the horizontal T200 axes at the trimmed CG height (+/- 3 mm). Do this by placing the thrusters, or by moving ballast.
+* Put the vertical pair on the CG fore/aft (+/- 3 mm). Slotted mounts let you tune it in the water.
+* Raise GM (section 1). Every mm of GM directly cuts these angles.
+* In ArduSub, cap heave and surge throttle until pool tests show the pitch behaves.
