@@ -1,0 +1,15 @@
+Window (acrylic, gasket opening): 122 x 52 x 5 mm span, q = 21.5 kPa
+   simply supported  sigma_max   1.42 MPa  deflection  0.045 mm  SF   7.0 vs 10 MPa long-term acrylic
+   fixed edges       sigma_max   1.16 MPa  deflection  0.011 mm  SF   8.6 vs 10 MPa long-term acrylic
+Box side wall 6061 (6 mm): 300 x 150 x 6 mm span, q = 21.5 kPa
+   simply supported  sigma_max   8.20 MPa  deflection  0.081 mm  SF   6.7 vs 55 MPa welded 6061 HAZ fatigue-safe
+   fixed edges       sigma_max   6.68 MPa  deflection  0.020 mm  SF   8.2 vs 55 MPa welded 6061 HAZ fatigue-safe
+Box side wall 6061 if thinned to 4 mm: 300 x 150 x 4 mm span, q = 21.5 kPa
+   simply supported  sigma_max  18.45 MPa  deflection  0.274 mm  SF   3.0 vs 55 MPa
+   fixed edges       sigma_max  15.04 MPa  deflection  0.068 mm  SF   3.7 vs 55 MPa
+Box end wall 6061 (6 mm): 170 x 150 x 6 mm span, q = 21.5 kPa
+   simply supported  sigma_max   4.66 MPa  deflection  0.041 mm  SF  11.8 vs 55 MPa
+   fixed edges       sigma_max   4.81 MPa  deflection  0.013 mm  SF  11.4 vs 55 MPa
+Box bottom 6061 (8 mm, no window cut-out): 300 x 170 x 8 mm span, q = 21.5 kPa
+   simply supported  sigma_max   5.43 MPa  deflection  0.051 mm  SF  10.1 vs 55 MPa
+   fixed edges       sigma_max   4.70 MPa  deflection  0.013 mm  SF  11.7 vs 55 MPa
