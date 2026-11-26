@@ -89,3 +89,22 @@ The legs are 16 mm-rail frames, so a 1 x 1 in angle left no room for an M4 head.
 Lead stock for 1.42 kg is 7.20 mm thick in real 11.34 g/cc lead.
 **Side effect:** adding holes to BASE-LEG made the rev C corner-bracket mates re-solve 0.09 mm. That causes 2 small new overlaps, and fully defining
 those mates fixes them.
+
+## 2026-11-26: Real T200 mass, re-trim, mate clean-up
+**Correction:** Blue Robotics lists the current T200 at **427 g in air and 239 g in water**. Earlier I used 344 g / 156 g from an older listing.
+Each thruster is 83 g heavier in water, about 0.5 kg for all six. With the real thrusters the 1.42 kg lead plate would make the sub
+**sink (about -3 %)**. Lesson: check vendor data against the current datasheet before sizing ballast. Buoyancy margins on a small sub are only a few hundred grams.
+**Re-trim:** lead cut to **0.80 kg**. The U-plate became two 44 x 112 mm bars, one under each bracket, still 7.2 mm real lead so the M5 countersinks keep their depth.
+The ballast centroid moved 12 mm forward. The T200s in the proposal now carry a 0.427 kg mass override, so the SolidWorks totals are right.
+**Mate clean-up:** the port leg was a SolidWorks *mirror component*, which positions itself from the part's own geometry.
+Adding holes to the leg moved it, and with it 24 other parts, by 0.093 mm. Fix: dissolve the mirror and give the port leg the same 3 mates as the
+starboard leg. All parts are back at rev C positions, and the 2 overlaps are gone.
+
+| Rev D (real T200, 0.80 kg lead, est. internals) | |
+|---|---|
+| Weight in air | 12.6 kg |
+| Buoyancy reserve | +1.0 % |
+| CB above CG | 16 mm |
+| Horizontal thrust line vs CG | 2.3 mm below |
+| Full-surge / full-heave pitch | ~8 deg / ~4 deg |
+| Static trim | CG ~2.6 mm aft of CB, so ~9 deg nose-up. Fix with the internal layout (e.g. move ~1 kg of electronics ~30 mm forward) |
