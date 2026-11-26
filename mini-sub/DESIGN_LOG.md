@@ -45,12 +45,36 @@ full surge pitches the vehicle about 60 deg. Because the thrust line sits at the
 lever arm and the restoring moment equally. The thrusters themselves must move down. The verticals also sit 15 mm aft of the CG,
 so heave pitches the vehicle too.
 
-## 2026-11-26: Rev D proposal (in progress)
-**Decision:** rework a copy of the design through the SolidWorks API instead of only reporting problems. The teammate's rev C stays untouched.
-Planned changes, each as a script parameter:
-- Corner thruster mounts extended so the horizontal T200 axes drop 15 mm, to the CG height
-- Vertical thruster mounts moved 15 mm forward, onto the CB line
-- Lid 6 mm -> 4 mm (safety factor about 9, and it takes weight off the top)
-- 1.2 kg lead plate low and forward on the base legs
-- Check that the electronics bay box seats in the base board
-- Walls kept at 6 mm (changing them would change the weld design, which is the designer's call)
+## 2026-11-26: Rev D proposal, built through the SolidWorks API
+**Decision:** rework a copy of the design instead of only reporting problems. The teammate's rev C stays untouched.
+**Method:** copied the CAD set to `BENTO_REV-D_proposal` and repointed every reference to the copies (`ReplaceReferencedDocument`).
+`rev_d_changes.py` then edits sketch and feature dimensions, rebuilds, and runs interference detection. The survey and analysis run on the result.
+Each change is one parameter, so the team can rerun it with new numbers.
+**Lesson learned:** Pack and Go re-saved the source assembly even though it was opened read-only, and didn't repoint the copies.
+Copying files and calling `ReplaceReferencedDocument` on the copies is the safe way to fork a SolidWorks design.
+
+| Change | Rev C | Rev D |
+|---|---|---|
+| Horizontal T200 axes | Y 968.1 (board mid-plane) | Y 948.1. Mounts 50 mm tall, hanging 20 mm below the board |
+| Vertical T200s | X 769.6 | X 754.6 (15 mm forward). Board notches driven by one new dimension |
+| Lid | 6 mm, 0.92 kg | 4 mm, 0.62 kg |
+| Ballast | none | 1.42 kg U-shaped lead plate between the legs, clear of the bottom camera window |
+| Box/board corners | R10 fillets clip the bay walls (8 overlaps) | Dog-bone corner relief cut, no overlap |
+
+**Results (with T200 at its real 344 g and estimated internals):**
+
+| | Rev C (trimmed) | Rev D |
+|---|---|---|
+| Buoyancy reserve | +1 % (with 1.24 kg lead) | +1.2 % |
+| CB above CG | 16 mm | 20 mm |
+| Horizontal thrust line vs CG | 15 mm above | 1.8 mm above |
+| Full-surge pitch | ~60 deg | ~5 deg |
+| Verticals vs CG (fore/aft) | 15 mm aft | 2 mm |
+| Full-heave pitch | ~52 deg | ~5 deg |
+
+**Problems the checks found:**
+- The 16 M4 latch screws go through the 4 mm lid, and 8 of them cut into the lid gasket. Rev C already had only 4 mm of thread engagement (less than 1.5 x the screw diameter).
+  The fix needs rivet nuts, thicker pads under the latches, or through-bolts outside the gasket line. This is open, and it's the designer's call.
+- In both revisions, the base board has no clearance holes for the six M5 screws on the leg corner brackets.
+- The lid gasket is modeled already compressed (it overlaps the lid by about 4.2 cm^3). That's fine for CAD, but worth knowing for any seal analysis.
+- The rest of the 1127 interferences are fastener threads and overlaps inside the imported Blue Robotics T200 model.
