@@ -57,3 +57,34 @@ onto the gasket, so the gasket seal gets tighter with depth.
 * Real base-board material (it's the heaviest part; G10 at 1.85 g/cc vs HDPE at 0.95 changes trim a lot)
 * Real battery and electronics masses and positions -> rerun `buoyancy_trim.py`
 * Lid gasket compression between the 8 draw latches; window flange bolt preload
+
+## 3. Thruster authority (`thruster_allocation.py`)
+
+Layout: ArduSub **Vectored** frame (BlueROV2, FRAME_CONFIG 1): 4 horizontal T200s on the corner mounts at 45 deg,
+2 vertical T200s side by side on the curved mounts. It controls roll, yaw, heave, surge and sway, **but not pitch**.
+Thruster positions come from `TOP-ASSY_BENTO_REV-C_T200.SLDASM` (a copy assembly with the T200s bolted to the mounts.
+All holes line up. Built by `place_t200.py` in the CAD folder). The horizontal axes sit at the base-board mid-plane (Y 968.1),
+and the verticals sit on the board center line (X 769.6).
+
+| Axis | Max (T200 @ 16 V) |
+|---|---|
+| Surge | 114 N |
+| Sway | 109 N |
+| Heave | 103 N |
+| Roll | 16 N*m |
+| Yaw | 41 N*m |
+
+Plenty of force: drag is roughly 33 N at 1 m/s (frontal area ~0.06 m^2, Cd ~1.1), so cruise thrust is ~10 N.
+
+**Pitch is the weak spot.** Nothing can correct pitch, so it relies on the passive restoring moment, max m g GM = 2.0 N*m.
+* As placed, the horizontal thrust line is **15 mm above the trimmed CG**. Full surge pitches the sub ~60 deg, and a 10 N cruise ~4-5 deg.
+* The thrusters sit almost exactly at the **CB height** (968.1 vs 968.8). So ballast can't fix this: lowering the CG grows the
+  offset and the GM together, and full surge still pitches ~65 deg whatever the ballast. The thrust line has to move down
+  toward the CG.
+* The verticals sit ~15 mm aft of the trimmed CG: half heave (50 N) pitches it ~22 deg, full heave ~52 deg.
+
+What to do
+* Lower the horizontal T200s ~15 mm by extending the straight mounts below the base board, so their axes sit at the trimmed CG height (+/- 3 mm).
+* Move the vertical pair ~15 mm forward, or use slotted holes, so they sit on the CG/CB fore/aft line.
+* Raise GM (section 1). It cuts the pitch from whatever offset is left.
+* In ArduSub, cap surge and heave throttle until pool tests show the pitch behaves.
