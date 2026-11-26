@@ -108,3 +108,25 @@ starboard leg. All parts are back at rev C positions, and the 2 overlaps are gon
 | Horizontal thrust line vs CG | 2.3 mm below |
 | Full-surge / full-heave pitch | ~8 deg / ~4 deg |
 | Static trim | CG ~2.6 mm aft of CB, so ~9 deg nose-up. Fix with the internal layout (e.g. move ~1 kg of electronics ~30 mm forward) |
+
+## 2026-11-26: Lid latch screws, board holes, final trim pass
+**Lid:** the plan was M4 closed-end rivet nuts. Mapping the 16 holes showed the outer hole of every keeper sits directly over the lid gasket and
+its flange, so a rivet-nut body would push into the seal. Each keeper is one strap with two fixed holes, and moving the keepers was blocked
+(latch reach inward, lid edge outward). **Solution:** a 6 mm raised aluminum pad under each of the 8 keepers, with blind M4 tapped holes
+(7 mm thread, 6 mm engagement with M4 x 8 screws, compared with 4 mm in rev C). Nothing touches the gasket. The lid is still ~0.2 kg lighter than rev C,
+but it now has to be machined from 10 mm plate. The latches sit 6 mm higher, and the box walls get 16 blind M4 holes at the new height.
+(Rev C never had latch holes in the walls; the screws ran into solid wall.)
+**Base board:** the corner-bracket screws are M3, not M5. Added 6 x Ø3.4 clearance holes, so the overlaps are gone.
+**Trim:** pads + screws added ~0.08 kg in water, so the lead went 0.80 -> **0.72 kg** (6.48 mm real-lead bars).
+
+| Rev D current (est. internals) | |
+|---|---|
+| Buoyancy reserve | +0.9 % |
+| CB above CG | 14.5 mm |
+| Horizontal thrust line vs CG | 4 mm below |
+| Full-surge / full-heave pitch | ~15 deg / ~6 deg |
+| Static trim | CG ~3 mm aft of CB, ~12 deg nose-up |
+
+**Takeaway:** each correction (real thruster mass, less lead, lid pads) moved the CG up a few mm. On a 12.6 kg vehicle with a GM of about 15 mm,
+the internal electronics layout now matters as much as any structural change. Next step: get real internals, then do one final tune of the
+two script parameters (mount drop, ballast mass) and the electronics placement for level trim.
