@@ -78,3 +78,14 @@ Copying files and calling `ReplaceReferencedDocument` on the copies is the safe 
 - In both revisions, the base board has no clearance holes for the six M5 screws on the leg corner brackets.
 - The lid gasket is modeled already compressed (it overlaps the lid by about 4.2 cm^3). That's fine for CAD, but worth knowing for any seal analysis.
 - The rest of the 1127 interferences are fastener threads and overlaps inside the imported Blue Robotics T200 model.
+
+## 2026-11-26: Ballast plate mounting (caught in review)
+**Problem:** Ethan noticed in a screenshot that the lead plate was floating: about 1 mm of air to each leg and no attachment. The interference check
+can't catch a part that touches nothing, so a visual review mattered here.
+**Fix:** two 6061-T6 unequal angles (1-1/2 x 1 x 1/8 in, 69 mm, 35 g each). Each one bolts to the leg's front rail with 2 x M4 bolts, one above the other.
+The plate hangs from the angle's top flange on 4 x M5 flat-head bolts, countersunk flush, so nothing sits below the plate's underside.
+The legs are 16 mm-rail frames, so a 1 x 1 in angle left no room for an M4 head. The taller leg of the angle was needed.
+**Effect:** +105 g. The sub is now about 0.07 kg heavier in water (buoyancy reserve about +0.6 %, still above the 0.5 % rule).
+Lead stock for 1.42 kg is 7.20 mm thick in real 11.34 g/cc lead.
+**Side effect:** adding holes to BASE-LEG made the rev C corner-bracket mates re-solve 0.09 mm. That causes 2 small new overlaps, and fully defining
+those mates fixes them.
