@@ -130,3 +130,37 @@ but it now has to be machined from 10 mm plate. The latches sit 6 mm higher, and
 **Takeaway:** each correction (real thruster mass, less lead, lid pads) moved the CG up a few mm. On a 12.6 kg vehicle with a GM of about 15 mm,
 the internal electronics layout now matters as much as any structural change. Next step: get real internals, then do one final tune of the
 two script parameters (mount drop, ballast mass) and the electronics placement for level trim.
+
+## 2026-11-26: CFD drag and pitch, lid/gasket FEA, window and wall checks
+**Question:** How much drag does REV-D have, does the flow pitch it, and will the lid, gasket, windows and walls hold at 7 ft?
+**Tools:** the team only has free SolidWorks (no Simulation or Flow Simulation), so everything ran on open-source solvers: OpenFOAM (snappyHexMesh + simpleFoam,
+k-omega SST), gmsh + CalculiX for the lid, and Roark plate formulas for the windows and walls. ParaView makes the pictures. The case and scripts are in `cfd/` and `fea/`.
+
+**CFD (full vehicle, 1.7 M cells, thrusters not spinning):**
+
+| Speed | Drag | Cd (A = 0.0645 m²) | Vertical force | Pitch moment about CG |
+|---|---|---|---|---|
+| 0.25 m/s | 1.70 N | 0.84 | 0.3 N down | 0.04 N·m nose-down |
+| 0.5 m/s | 6.8 N | 0.85 | 1.2 N down | 0.16 N·m nose-down |
+| 1.0 m/s | 27.1 N | 0.84 | 5.1 N down | 0.57 N·m nose-down |
+* Cd stays about 0.84 from 0.25 to 1 m/s, so drag goes with speed squared. With 114 N of surge thrust, the top speed is about **2 m/s**.
+* More than 95 % of the drag is pressure drag from the flat front face and the window bulge (red in `cfd/results/renders/*_surface_cp.png`).
+* **Pitch:** the flow pushes down on the front of the vehicle (net downforce acting about 135 mm ahead of the CG), so the moment is nose-down at about 21 mm × drag.
+  The horizontal T200s sit only 4 mm below the CG, which leaves about 17 mm × drag of nose-down moment against a righting moment of 1.57 N·m/rad (GM 14.5 mm):
+  about **5° at 0.5 m/s and about 17° at 1 m/s**.
+  **Proposed fix:** lower the horizontal thrust line to about 21 mm below the CG (another ~17 mm of mount drop). In steady cruise, thrust equals drag, so that cancels
+  the hydrodynamic pitch at every speed. Not applied yet; it's Ethan's call and depends on the real internals.
+* Workaround worth noting: the Ubuntu OpenFOAM v1912 build crashes in every function object, so forces are integrated from the written fields by `forces_from_fields.py`.
+
+**Lid + gasket FEA (CalculiX, 360 k nodes):** the McMaster 4432N117 latch is rated **25 lb (111 N)**, has a fixed draw distance and does not lock.
+* The lid is fine: 24 MPa peak and 0.5 mm sag at 7 ft, against 276 MPa yield.
+* **The gasket gets almost no squeeze.** Latched at the surface: 2 % average and 0.6 % at the corners. At 7 ft the water adds 1.24 kN on the lid, bringing it to 5 % average,
+  but the corners stay under 0.5 %. A solid 8 mm × 3 mm EPDM band needs about 7 kN for 20 % squeeze, and 8 latches give 0.9 kN.
+  Because the draw is fixed, the CAD's 0.6 mm interference would either keep the latches from closing or overload them.
+* **Recommendation:** a closed-cell sponge EPDM or neoprene gasket (about 20 to 40 × softer, so the same latches give 20 to 30 %), or an O-ring cord in a groove (1 to 2.5 kN).
+  Assumption to confirm: gasket compression modulus 5 MPa, typical for 60A solid EPDM.
+
+**Windows and walls (Roark, 21.5 kPa):** acrylic windows 1.2 to 1.4 MPa (SF ≥ 7 against 10 MPa long-term). Side walls at 6 mm: 7 to 8 MPa (SF ≥ 7 against 55 MPa welded 6061).
+**Decision input:** 4 mm walls would still give SF ≥ 3 (15 to 18 MPa), so wall thinning is structurally fine if the weight is wanted.
+
+**Takeaway:** the structure is strong enough; the open risks are the **seal** and the **pitch at speed**. Both have cheap fixes (gasket material, thruster mount drop).

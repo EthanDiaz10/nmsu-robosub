@@ -1,0 +1,13 @@
+{
+ "case": "case1_latch",
+ "max_disp_mm": 0.408404,
+ "lid_center_sag_mm": 0.408404,
+ "lid_max_vm_MPa": 28.34614282554806,
+ "lid_vm_99pct_MPa": 22.04899227516846,
+ "gasket_squeeze_pct": {
+  "min": 2.3098666666666667,
+  "mean": 7.275329694219493,
+  "max": 9.455400000000001
+ },
+ "gasket_unloaded_fraction": 0.0
+}

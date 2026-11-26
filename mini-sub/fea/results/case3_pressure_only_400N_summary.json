@@ -1,0 +1,13 @@
+{
+ "case": "case3_pressure_only",
+ "max_disp_mm": 0.368297,
+ "lid_center_sag_mm": 0.368297,
+ "lid_max_vm_MPa": 18.299762622411254,
+ "lid_vm_99pct_MPa": 14.80779140818426,
+ "gasket_squeeze_pct": {
+  "min": -0.22611733333333336,
+  "mean": 2.806082952970306,
+  "max": 4.688266666666666
+ },
+ "gasket_unloaded_fraction": 0.0027925160569673277
+}
