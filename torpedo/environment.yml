@@ -1,0 +1,10 @@
+# micromamba environment for the Kraken torpedo scripts
+#   micromamba create -f environment.yml
+#   micromamba activate kraken-torpedo
+name: kraken-torpedo
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pywin32      # kraken_torpedo_solidworks.py (drives SolidWorks)
+  - cadquery     # kraken_torpedo.py (CadQuery version, colored STEP/STL)
