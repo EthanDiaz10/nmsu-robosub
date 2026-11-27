@@ -176,3 +176,13 @@ k-omega SST), gmsh + CalculiX for the lid, and Roark plate formulas for the wind
   which covers the ~21 mm the CFD says cancels the flow-induced nose-down moment. Interference: no new pairs, even with all thrusters at the bottom of the slots.
 * **Mass:** 11.036 kg to **11.050 kg**. CoM moved from (753.53, 954.20) to (753.58, 953.93) mm.
 * Team report (before/after, the reasons, results, renders): https://claude.ai/artifact/TrrndNj66PSfLTW4sB5Jxu
+
+## 2026-11-26: Thruster adapter plates replace the slotted mount (d7)
+**Problem (spotted by Ethan):** the d6 slots put the T200's top and bottom holes in one column only 19 mm apart. 15 mm slots left a 0.6 mm web,
+and the countersinks cut through it, so the two centre slots merged into one. The printed PET mount would have torn out. Lesson: check the web between neighbouring slots, not just the edge margins.
+**Fix:** each horizontal T200 bolts to a new **82 × 36 × 5 mm 6061 adapter plate** (round countersunk M3 holes in the original diamond). The adapter clamps to the mount
+with **2 × M4 × 16 pan heads + nyloc nuts through 2 vertical slots** at ±34 mm, outside the T200 foot. The mount centre is solid again, and the plate is 63 mm tall.
+* Travel: 0 to 20 mm down. 5 mm up was dropped because the M4 hardware reaches the base board after about 1 mm. Thrust line: **5.7 to 25.7 mm below the CG** (CFD target about 21 mm).
+* Interference: no new pairs at either end of the travel. The T200s sit 5 mm further out, so the clearance to the board went 5 → 10 mm and to the legs 17 → 22 mm.
+* Hardware: **M3 × 10 flat heads** for T200-to-adapter. The 12 mm screw in the CAD runs 1.55 mm past the T200 insert.
+* Mass: 11.050 → **11.235 kg** (+184 g, about 125 g in water). That uses up the +0.9 % reserve, so the lead should go from 0.72 to about **0.58 kg** (in CAD or at the pool).
