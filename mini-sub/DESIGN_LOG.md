@@ -164,3 +164,15 @@ k-omega SST), gmsh + CalculiX for the lid, and Roark plate formulas for the wind
 **Decision input:** 4 mm walls would still give SF ≥ 3 (15 to 18 MPa), so wall thinning is structurally fine if the weight is wanted.
 
 **Takeaway:** the structure is strong enough; the open risks are the **seal** and the **pitch at speed**. Both have cheap fixes (gasket material, thruster mount drop).
+
+## 2026-11-26: Sponge gasket and slotted thruster mounts (d6), report for the team
+**Decision:** freeze the structure for manufacturing and leave the internals-dependent tuning to the first pool test, instead of chasing exact numbers in CAD.
+* **Lid gasket:** 3.0 mm solid EPDM changed to **1/8 in (3.175 mm) closed-cell sponge** EPDM or neoprene, medium firmness. The bottom still sits on the flange,
+  and the modelled compression went 0.60 to 0.78 mm (24 %). Medium sponge needs about 0.3 to 0.4 kN for 25 %, inside the 0.9 kN the 8 latches give.
+  The gasket mass went 24.9 to 3.4 g. In CAD it is "Rubber" with a 150 kg/m³ override, because the custom sponge material can't load until the proposal folder is
+  added to SolidWorks' material File Locations. So the mass is right but the stiffness is not.
+* **Straight thruster mounts:** the 4 T200 holes became **15 mm vertical slots**: 3.4 mm wide, with the countersink kept as a chamfer so the M3 flat heads sit flush.
+  The plate went from 50 to 65 mm (43.4 g each). The T200s stay at the top of the slots. The horizontal thrust line can now be set anywhere from **5.8 to 20.8 mm below the CG**,
+  which covers the ~21 mm the CFD says cancels the flow-induced nose-down moment. Interference: no new pairs, even with all thrusters at the bottom of the slots.
+* **Mass:** 11.036 kg to **11.050 kg**. CoM moved from (753.53, 954.20) to (753.58, 953.93) mm.
+* Team report (before/after, the reasons, results, renders): https://claude.ai/artifact/TrrndNj66PSfLTW4sB5Jxu
